@@ -3,20 +3,19 @@ from oauth2client.service_account import ServiceAccountCredentials
 scope = ["https://spreadsheets.google.com/feeds"]
 creds = ServiceAccountCredentials.from_json_keyfile_name("client_secret.json", scope)
 client = gspread.authorize(creds)
-TabellenListe = ["FinaleMannl9","FinaleWeiblich9"]
+TabellenListe = ["FinaleMannlich9","FinaleWeiblich9"]
 
 #----------------------------------------------------------------------------------------------------
 
 from operator import *
-from pprint import *
-import time
+from time import *
 from tkinter import *
 
 #----------------------------------------------------------------------------------------------------
 
 liste = []
 x = 1
-tabelle = "\n %-15s %-20s %-30s\n" % ("Platz", "Ergebnis", "Name")
+tabelle = ""
 ROOT = Tk()
 Textsize = int(50*(ROOT.winfo_screenheight()/1080+ROOT.winfo_screenwidth()/1920)/2)
 ROOT.overrideredirect(True)
@@ -35,7 +34,6 @@ class Kletterer:
         self.Name = Vorname + " " + Nachname
         self.FinalPunktzahl = FinalPunktzahl
         self.Rohergebnis = str(T) + "T" + str(VT) + " " + str(B) + "B" + str(VB)
-
 #----------------------------------------------------------------------------------------------------
 
 
@@ -43,7 +41,15 @@ def main():
     global x
     global tabelle
     global liste
+    global TabellenBlatt
     x = 1
+
+    Altersklasse = TabellenBlatt.cell(1,10).value
+    print(Altersklasse)
+    
+    #tabelle = "\n %-15s %-20s %-30s" % ("Platz", "Ergebnis", "Name")
+    print(Altersklasse)
+
     AllesDatensaetze = TabellenBlatt.get_all_records()
     AnzahlZeilen = len(AllesDatensaetze)
 
@@ -51,17 +57,15 @@ def main():
     LABEL = Label(ROOT,text=tabelle,font="Times "+str(Textsize)+" bold",justify=LEFT)
     LABEL.pack()
     ROOT.update()
+    print("\nLabel erstellt\n")
 
-    zeit1 = time.time()
 
-    print("while x <= AnzahlZeilen:")
 
     while x <= AnzahlZeilen:
 
         # string = "global x; Nummer = 'nummer' + str(x)"
         # exec(string)
 
-        print(x)
         x+=1
         
         Vorname = TabellenBlatt.cell(x,2).value
@@ -72,16 +76,17 @@ def main():
         B = TabellenBlatt.cell(x,7).value
         VB = TabellenBlatt.cell(x,8).value
 
+        print(Vorname,Nachname)
+
         Nummer = Kletterer(Vorname, Nachname, FinalPunktzahl, T, VT, B, VB)
+
         liste.append(Nummer)
         
 
-    # pprint(liste)
-    # print("")
     liste.sort(key=attrgetter("FinalPunktzahl"), reverse=False)
-
-    #pprint(liste)
-    tabelle = "\n %-15s %-20s %-30s\n" % ("Platz", "Ergebnis", "Name")
+ 
+    tabelle = "\n %20s \n %-15s %-20s %-30s\n" % (Altersklasse, "Platz", "Ergebnis", "Name")
+    #tabelle = "\n %-15s %-20s %-30s" % ("Platz", "Ergebnis", "Name")
 
     i = 0
     z = 1
@@ -96,28 +101,25 @@ def main():
         if PunktzahlAlt == FinalPunktzahl:
             i += 0
             z += 1
-            #print("True, y:\t",y)
-            print("True, z:\t",z)
+            
         else:
             i += z
             z = 1
-            #print("False, y:\t",y)
-            print("False, z:\t",z)
-                    
-        print("i:\t",i)
+            
         PunktzahlAlt = FinalPunktzahl
 
         tabelle = tabelle + "\n %-15s %-20s %-30s" % (str(i), Rohergebnis, Name)
-            
 
-        #tabelle = tabelle +"\n"+ Name +"\t"+ FinalPunktzahl +"\t"+ PlatzierungVorrunde
-
+        
     LABEL.destroy()
     ROOT.update()
+           
+
 
 
 while True:
-    for TabellenBlatt in TabellenListe:
+    for TabellenName in TabellenListe:
+        TabellenBlatt = client.open(TabellenName).sheet1
         main()
-
-#GUI auf Kivy Basis, Kivy ist installiert
+    #TabellenBlatt = client.open("FinaleMannlich9").sheet1
+    #main()
