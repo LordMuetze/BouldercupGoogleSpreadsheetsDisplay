@@ -3,7 +3,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 scope = ["https://spreadsheets.google.com/feeds"]
 creds = ServiceAccountCredentials.from_json_keyfile_name("client_secret.json", scope)
 client = gspread.authorize(creds)
-Male9 = client.open("FinaleMannlich9").sheet1
+TabellenListe = ["FinaleMannl9","FinaleWeiblich9"]
 
 #----------------------------------------------------------------------------------------------------
 
@@ -44,7 +44,7 @@ def main():
     global tabelle
     global liste
     x = 1
-    AllesDatensaetze = Male9.get_all_records()
+    AllesDatensaetze = TabellenBlatt.get_all_records()
     AnzahlZeilen = len(AllesDatensaetze)
 
 
@@ -64,13 +64,13 @@ def main():
         print(x)
         x+=1
         
-        Vorname = Male9.cell(x,2).value
-        Nachname = Male9.cell(x,3).value
-        FinalPunktzahl = Male9.cell(x,4).value
-        T = Male9.cell(x,5).value
-        VT = Male9.cell(x,6).value
-        B = Male9.cell(x,7).value
-        VB = Male9.cell(x,8).value
+        Vorname = TabellenBlatt.cell(x,2).value
+        Nachname = TabellenBlatt.cell(x,3).value
+        FinalPunktzahl = TabellenBlatt.cell(x,4).value
+        T = TabellenBlatt.cell(x,5).value
+        VT = TabellenBlatt.cell(x,6).value
+        B = TabellenBlatt.cell(x,7).value
+        VB = TabellenBlatt.cell(x,8).value
 
         Nummer = Kletterer(Vorname, Nachname, FinalPunktzahl, T, VT, B, VB)
         liste.append(Nummer)
@@ -117,6 +117,7 @@ def main():
 
 
 while True:
-    main()
+    for TabellenBlatt in TabellenListe:
+        main()
 
 #GUI auf Kivy Basis, Kivy ist installiert
