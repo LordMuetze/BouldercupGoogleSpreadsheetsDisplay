@@ -53,6 +53,7 @@ def main():
     LABEL = Label(ROOT,text=tabelle,font="Arial "+str(Textsize)+" bold",justify=LEFT)
     LABEL.pack()
     ROOT.update()
+    print("Anzeige")
 
 
 
@@ -75,7 +76,7 @@ def main():
 
     liste.sort(key=attrgetter("FinalPunktzahl"), reverse=False)
  
-    tabelle = "\n %20s \n %-10s %-215s %-30s\n" % (Altersklasse, "Platz", "Ergebnis", "Name")
+    tabelle = "\n %20s \n %-10s %-15s %-30s\n" % (Altersklasse, "Platz", "Ergebnis", "Name")
 
     i = 0
     z = 1
