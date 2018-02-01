@@ -75,7 +75,7 @@ def main():
 
     liste.sort(key=attrgetter("FinalPunktzahl"), reverse=False)
  
-    tabelle = "\n %20s \n %-15s %-20s %-30s\n" % (Altersklasse, "Platz", "Ergebnis", "Name")
+    tabelle = "\n %20s \n %-10s %-215s %-30s\n" % (Altersklasse, "Platz", "Ergebnis", "Name")
 
     i = 0
     z = 1
@@ -97,7 +97,7 @@ def main():
             
         PunktzahlAlt = FinalPunktzahl
 
-        tabelle = tabelle + "\n %-15s %-20s %-30s" % (str(i), Rohergebnis, Name)
+        tabelle = tabelle + "\n %-10s %-15s %-30s" % (str(i), Rohergebnis, Name)
 
         
     LABEL.destroy()
