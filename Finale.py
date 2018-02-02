@@ -109,5 +109,6 @@ def main():
 
 while True:
     for TabellenName in TabellenListe:
+        #exec("TabellenBlatt = client.open(FinaleMannlich9)."+str(TabellenName))
         TabellenBlatt = client.open(TabellenName).sheet1
         main()

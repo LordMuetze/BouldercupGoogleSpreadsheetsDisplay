@@ -17,7 +17,7 @@ liste = []
 x = 1
 tabelle = ""
 ROOT = Tk()
-Textsize = int(50*(ROOT.winfo_screenheight()/1080+ROOT.winfo_screenwidth()/1920)/2)
+Textsize = int(40*(ROOT.winfo_screenheight()/1080+ROOT.winfo_screenwidth()/1920)/2)
 ROOT.overrideredirect(True)
 ROOT.geometry("{0}x{1}+0+0".format(ROOT.winfo_screenwidth(), ROOT.winfo_screenheight()))
 ROOT.focus_set()  # <-- move focus to this widget
