@@ -3,7 +3,10 @@ from oauth2client.service_account import ServiceAccountCredentials
 scope = ["https://spreadsheets.google.com/feeds"]
 creds = ServiceAccountCredentials.from_json_keyfile_name("client_secret.json", scope)
 client = gspread.authorize(creds)
-TabellenListe = ["FinaleMannlich9","FinaleWeiblich9"]
+TabellenListe = ["JgdDW","JgdDM","JgdCW","JgdCM","JgdBW","JgdBM"]
+#TabellenListe = ["JgdDW","JgdDM"]
+#TabellenListe = ["JgdCW","JgdCM"]
+#TabellenListe = ["JgdBW","JgdBM"]
 
 #----------------------------------------------------------------------------------------------------
 
@@ -53,7 +56,6 @@ def main():
     LABEL = Label(ROOT,text=tabelle,font="Arial "+str(Textsize)+" bold",justify=LEFT)
     LABEL.pack()
     ROOT.update()
-    print("Anzeige")
 
 
 
@@ -76,7 +78,7 @@ def main():
 
     liste.sort(key=attrgetter("FinalPunktzahl"), reverse=False)
  
-    tabelle = "\n %20s \n %-10s %-15s %-30s\n" % (Altersklasse, "Platz", "Ergebnis", "Name")
+    tabelle = "\n %20s \n\n %-10s %-15s %-30s\n" % (Altersklasse, "Platz", "Ergebnis", "Name")
 
     i = 0
     z = 1
