@@ -37,6 +37,7 @@ class Kletterer:
         self.Name = Vorname + " " + Nachname
         self.FinalPunktzahl = FinalPunktzahl
         self.Rohergebnis = str(T) + "T" + str(VT) + " " + str(B) + "B" + str(VB)
+        #self.VorrundenPlatzierung = VorrundenPlatzierung
 #----------------------------------------------------------------------------------------------------
 
 
@@ -70,9 +71,9 @@ def main():
         VT = TabellenBlatt.cell(x,5).value
         B = TabellenBlatt.cell(x,6).value
         VB = TabellenBlatt.cell(x,7).value
+        #VorrundenPlatzierung = TabellenBlatt.cell(x,8).value
 
         Nummer = Kletterer(Vorname, Nachname, FinalPunktzahl, T, VT, B, VB)
-
         liste.append(Nummer)
         
 
@@ -91,6 +92,7 @@ def main():
         Rohergebnis = Objekt.Rohergebnis
 
         if PunktzahlAlt == FinalPunktzahl:
+            
             i += 0
             z += 1
             
@@ -101,6 +103,7 @@ def main():
         PunktzahlAlt = FinalPunktzahl
 
         tabelle = tabelle + "\n %-10s %-15s %-30s" % (str(i), Rohergebnis, Name)
+        ObjektAlt = Objekt
 
         
     LABEL.destroy()
